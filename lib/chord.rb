@@ -2,27 +2,30 @@
 require 'optparse'
 
 class ChordConverter
+  def initialize
+    @regex = = /(\[[A-G][#|b]?[m|maj]?1?[0-9]?\])/
+  end
 
   def parse(input, output)
     input.each do |line|
+      #process line
       line.strip!
-      regex = /(\[[A-G][#|b]?[m|maj]?1?[0-9]?\])/
-      l1, l2, prev = "", "", ""
-      line.split(regex).each do |token|
-        if token =~ regex
-          l1 << token
-          prev = token
+      chordline, textline, prevchord = "", "", ""
+      line.split(@regex).each do |token|
+        if token =~ @regex
+          chordline << token
+          prevchord = token
         else
           i = [0,(token.length - prev.length)].max
-          l1 << ' ' * i
-          l2 << token
-          prev = ""
+          chordline << ' ' * i
+          textline << token
+          prevchord = ""
         end
-        l1.strip!
-        l2.strip!
+        chordline.strip!
+        textline.strip!
       end
-      output << l1 << "\n"
-      output << l2 << "\n"
+      output << chordline << "\n"
+      output << textline << "\n"
     end
   end
 

@@ -3,23 +3,27 @@ require 'optparse'
 
 class ChordConverter
 
-  def initialize
+  def initialize(input = $stdin, output = $stdout)
     @regex = /(\[[A-G][#|b]?[m|maj]?1?[0-9]?\])/
+    @input = input  
+    @output = output
+    @chordline, @textline, @prevchord = '', '', ''
   end
 
   def process(input)
     input.each do |line|
-      process_line(line)
+      @output << process_line(line)
     end
+    return @output
   end
 
   def process_line(line)
     line.strip!
-    @chordline, @textline, @prevchord = "", "", ""
+    @chordline, @textline, @prevchord = '', '', ''
     line.split(@regex).each do |token|
       process_token(token)
     end
-    return @chordline.strip << "\n" << @textline.strip << "\n"
+    return @chordline.rstrip << "\n" << @textline.strip << "\n"
   end
 
   def process_token(token)
@@ -27,11 +31,12 @@ class ChordConverter
       @chordline << token
       @prevchord = token
     else
-      length = [0,(token.length - @prevchord.length)].max
+      length = token.length - @prevchord.length
       @chordline << ' ' * length
       @textline << token
-      @prevchord = ""
+      @prevchord = ''
     end
+    return [@chordline, @textline, @prevchord]
   end
 
 end

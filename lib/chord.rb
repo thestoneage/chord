@@ -19,24 +19,23 @@ class ChordConverter
 
   def process_line(line)
     line.strip!
-    @chordline, @textline, @prevchord = '', '', ''
+#    @chordline, @textline, @prevchord = '', '', ''
+    chordline, textline = "", ""
     line.split(@regex).each do |token|
-      process_token(token)
+      process_token(token, chordline, textline)
     end
-    return @chordline.rstrip << "\n" << @textline.strip << "\n"
+#    return @chordline.rstrip << "\n" << @textline.strip << "\n"
+    return chordline.rstrip << "\n" << textline.strip << "\n"
   end
 
-  def process_token(token)
+  def process_token(token, chordline, textline)
     if token =~ @regex
-      @chordline << token
-      @prevchord = token
+      chordline << token
     else
-      length = token.length - @prevchord.length
-      @chordline << ' ' * length
-      @textline << token
-      @prevchord = ''
+      textline << token
+      chordline << " " * (textline.length - chordline.length)
     end
-    return [@chordline, @textline, @prevchord]
+    return [chordline, textline]
   end
 
 end

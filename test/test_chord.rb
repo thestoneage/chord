@@ -37,6 +37,8 @@ EOF
   end
 
   def test_process_token
-    raise NotImplementedError, 'Need to write test_process_token'
+    chord = ChordConverter.new
+    assert_equal(["[Am]", ""], chord.process_token("[Am]","",""))
+    assert_equal(["          ", "Hello you!"], chord.process_token("Hello you!","",""))
   end
 end

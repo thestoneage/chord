@@ -19,12 +19,10 @@ class ChordConverter
 
   def process_line(line)
     line.strip!
-#    @chordline, @textline, @prevchord = '', '', ''
     chordline, textline = "", ""
     line.split(@regex).each do |token|
       process_token(token, chordline, textline)
     end
-#    return @chordline.rstrip << "\n" << @textline.strip << "\n"
     return chordline.rstrip << "\n" << textline.strip << "\n"
   end
 

@@ -1,0 +1,32 @@
+#!/usr/bin/ruby
+
+libdir = File.expand_path(File.join File.dirname(__FILE__.gsub(/(.*)bin.*?/, '\1')), 'lib')
+$LOAD_PATH.unshift libdir unless $LOAD_PATH.include? libdir
+
+require 'optparse'
+require 'chord'
+
+begin
+  options = {}
+  options[:input] = $stdin
+  options[:output] = $stdout
+  OptionParser.new do |opts|
+    opts.banner = "Usage: chord [options]"
+    opts.on("-o", "--output FILE", "Use Filename instead of STDOUT") do |file|
+      options[:output] = open(file, 'w')
+    end
+    opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+      options[:verbose] = v
+    end
+  end.parse!
+
+  if ARGV.length > 0
+    options[:input] = open(ARGV[0])
+  end
+
+  converter = ChordConverter.new(options[:input], options[:output])
+  converter.process options[:input]
+ensure
+  options[:input].close
+  options[:output].close
+end

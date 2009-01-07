@@ -39,25 +39,30 @@ class ChordConverter
 end
 
 if __FILE__ == $0
-  options = {}
-  options[:input] = $stdin
-  options[:output] = $stdout
-  OptionParser.new do |opts|
-    opts.banner = "Usage: example.rb [options]"
-    opts.on("-o", "--output FILE", "Use Filename instead of STDOUT") do |file|
-      options[:output] = open(file, 'w')
-    end
-    opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-      options[:verbose] = v
-    end
-  end.parse!
+  begin
+    options = {}
+    options[:input] = $stdin
+    options[:output] = $stdout
+    OptionParser.new do |opts|
+      opts.banner = "Usage: example.rb [options]"
+      opts.on("-o", "--output FILE", "Use Filename instead of STDOUT") do |file|
+        options[:output] = open(file, 'w')
+      end
+      opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+        options[:verbose] = v
+      end
+    end.parse!
 
-  if ARGV.length > 0
-    options[:input] = open(ARGV[0])
+    if ARGV.length > 0
+      options[:input] = open(ARGV[0])
+    end
+    p options
+    p ARGV
+
+    converter = ChordConverter.new(options[:input], options[:output])
+    converter.process options[:input]
+  ensure
+    options[:input].close
+    options[:output].close
   end
-  p options
-  p ARGV
-
-  converter = ChordConverter.new(options[:input], options[:output])
-  converter.process options[:input]
 end

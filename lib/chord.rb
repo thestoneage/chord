@@ -44,7 +44,7 @@ if __FILE__ == $0
     options[:input] = $stdin
     options[:output] = $stdout
     OptionParser.new do |opts|
-      opts.banner = "Usage: example.rb [options]"
+      opts.banner = "Usage: chord.rb [options]"
       opts.on("-o", "--output FILE", "Use Filename instead of STDOUT") do |file|
         options[:output] = open(file, 'w')
       end

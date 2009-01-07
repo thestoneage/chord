@@ -58,6 +58,6 @@ if __FILE__ == $0
   p options
   p ARGV
 
-  converter = ChordConverter.new
-  converter.parse(options[:input], options[:output])
+  converter = ChordConverter.new(options[:input], options[:output])
+  converter.process options[:input]
 end

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+	<head>
+		<meta http-equiv='content-type'     content='text/html; charset=UTF-8' />
+		<title>{{ page.title }}</title>
+		<meta name='author'      content='Marc Rummel' />
+		<meta name='description' content="{{ page.title }}" />
+		<meta name='keywords'    content='Marc Rummel, Marc, Rummel, {{ page.tags | join: ',' }} {{ page.topics | join: ',' }} {{ page.categories | join: ',' }}' />
+		<meta name='date'        content='{{ site.time | date_to_xmlschema }}' />
+		<meta name='DC.Title'    content="{{ page.title }}" />
+		<meta name='DC.Creator'  content='Marc Rummel' />
+
+		<meta http-equiv='content-language' content='en' />
+
+		<meta name='robots'      content='index, follow' />
+
+		<!-- Stylesheet -->
+		<link rel='stylesheet'      href='styles/style.css'  type='text/css' charset='UTF-8' />
+
+	</head>
+	<body>
+		<header>
+			<h1>{{ page.title }}</h1>
+			<h2>Chord is a simple ruby-programm that converts text files with inline chord symbols such as [Am] into various formats.</h2>
+		</header>
+		{{ content }}
+	</body>
+</html>

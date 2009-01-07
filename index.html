@@ -1,0 +1,48 @@
+---
+layout: default
+title: Chord
+---
+<section id='what'>
+	<header>
+		<h1>What</h1>
+	</header>
+	<p>
+		This is a very simple ChordPro-to-text converter. All it 
+		does, is extract the inline chord symbols from the text and 
+		place it above its original position.
+	</p>
+	<section>
+		<header>
+			<h1>Example:</h1>
+		</header>
+		<pre>
+This is a [em]stupid demo [am] example
+with two [am7]stupid demo [C] lines.
+		</pre>
+		<p>becomes:</p>
+		<pre>
+          [em]       [am]
+This is a stupid demo example
+
+         [am7]      [C]
+with two stupid demo lines.
+		</pre>
+	</section>
+</section>
+<section id='installation'>
+	<header>
+		<h1>Installation</h1>
+	</header>
+{% highlight bash %}
+gem sources -a http://Gems.GitHub.Com/
+gem install iconofthestoneage-b001e
+{% endhighlight %}
+</section>
+<section id='usage'>
+	<header>
+		<h1>Usage</h1>
+	</header>
+{% highlight bash %}
+chord inputfile.txt -o outputfile.txt
+{% endhighlight %}
+</section>

@@ -30,7 +30,7 @@ class ChordConverter
       chordline << token
     else
       textline << token
-      chordline << " " * token.length
+      chordline << " " * (textline.length - chordline.length)
     end
     return [chordline, textline]
   end

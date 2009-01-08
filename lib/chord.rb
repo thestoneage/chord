@@ -3,7 +3,7 @@
 class ChordConverter
 
   def initialize(input = $stdin, output = $stdout)
-    @regex = /(\[[A-H][#|b]?[m|maj|min]?1?[0-9]?\])/
+    @regex = /(\[[a-h|A-H][#|b]?[m|maj|min]?1?[0-9]?\])/
     @input = input  
     @output = output
     @chordline, @textline, @prevchord = '', '', ''

@@ -49,7 +49,9 @@ EOF
   
   def test_chord?
     converter = ChordConverter.new
-    notes = %w{A B C D E F G} + %w{A# B# C# D# E# F# G#} + %w{Ab Bb Cb Db Eb Fb Gb} + %w{H}
+    upcase = %w{A B C D E F G} + %w{A# B# C# D# E# F# G#} + %w{Ab Bb Cb Db Eb Fb Gb} + %w{H}
+    downcase = upcase.map { |chord| chord.downcase }
+    notes = upcase + downcase
 
     majors = notes.clone
     minors = majors.map { |chord| "#{chord}m" }

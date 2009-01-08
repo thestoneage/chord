@@ -28,14 +28,14 @@ EOF
     chord = ChordConverter.new("", output)
     assert_equal(@result1, chord.process(@inline1))
   end
-
+  
   def test_process_line
     chord = ChordConverter.new
     assert(@result1==chord.process_line(@inline1), "Was: \n#{chord.process_line(@inline1)}\nShould be:\n#{@result1}")
     assert(@result2==chord.process_line(@inline2), "Was: \n#{chord.process_line(@inline2)}\nShould be:\n#{@result2}")
     assert(@result3==chord.process_line(@inline3), "Was: \n#{chord.process_line(@inline3)}\nShould be:\n#{@result3}")
   end
-
+  
   def test_process_token
     chord = ChordConverter.new
     assert_equal(["[Am]", ""], chord.process_token("[Am]","",""))
@@ -55,11 +55,12 @@ EOF
 
     majors = notes.clone
     minors = majors.map { |chord| "#{chord}m" }
+    minors_alt = majors.map { |chord| "#{chord}min" }
     maj_sevens = majors.map { |chord| "#{chord}7" }
     min_sevens = minors.map { |chord| "#{chord}7" }
-    
+    min_sevens_alt = minors_alt.map { |chord| "#{chord}7" }
 
-    chords = [majors, minors, maj_sevens, min_sevens]
+    chords = [majors, minors, minors_alt, maj_sevens, min_sevens]
     chords.each do |chord_array|
       encapsulate(chord_array).each do |chord_string|
         assert(converter.chord?(chord_string), "Should match #{chord_string} but didn't")

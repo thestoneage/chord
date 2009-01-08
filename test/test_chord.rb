@@ -41,4 +41,28 @@ EOF
     assert_equal(["[Am]", ""], chord.process_token("[Am]","",""))
     assert_equal(["          ", "Hello you!"], chord.process_token("Hello you!","",""))
   end
+
+  
+  def encapsulate(chord_array)
+    chord_array.map{ |chord| "[#{chord}]" }
+  end
+  
+  def test_chord?
+    converter = ChordConverter.new
+    notes = %w{A B C D E F G} + %w{A# B# C# D# E# F# G#} + %w{Ab Bb Cb Db Eb Fb Gb} + %w{H}
+
+    majors = notes.clone
+    minors = majors.map { |chord| "#{chord}m" }
+    maj_sevens = majors.map { |chord| "#{chord}7" }
+    min_sevens = minors.map { |chord| "#{chord}7" }
+    
+
+    chords = [majors, minors, maj_sevens, min_sevens]
+    chords.each do |chord_array|
+      encapsulate(chord_array).each do |chord_string|
+        assert(converter.chord?(chord_string), "Should match #{chord_string} but didn't")
+      end
+    end
+  end
+    
 end

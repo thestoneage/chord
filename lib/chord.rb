@@ -26,13 +26,17 @@ class ChordConverter
   end
 
   def process_token(token, chordline, textline)
-    if token =~ @regex
+    if chord?(token)
       chordline << token
     else
       textline << token
       chordline << " " * (textline.length - chordline.length)
     end
     return [chordline, textline]
+  end
+  
+  def chord?(token)
+    @regex.match(token) and (@regex.match(token).captures == [token])
   end
 
 end
